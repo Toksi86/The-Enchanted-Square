@@ -29,6 +29,11 @@ class Level:
     def create_attack(self):
         self.current_attack = Weapon(self.player, [self.visible_sprites])
 
+    def create_magic(self, style, strength, cost):
+        print(style)
+        print(strength)
+        print(cost)
+
     def destroy_attack(self):
         if self.current_attack:
             self.current_attack.kill()
@@ -37,11 +42,13 @@ class Level:
     def create_map(self):
         layouts = {
             'boundary': import_csv_layout('map/map_FloorBlocks.csv'),
-            'grass': import_csv_layout('map/map_details.csv'),
+            'grass': import_csv_layout('map/map_Details.csv'),
+            'entities': import_csv_layout('map/map_Entities.csv'),
             # 'objects': None,
         }
         graphics = {
-            'grass': import_folder('sprites/grass')
+            'grass': import_folder('sprites/grass'),
+            'bricks': import_folder('sprites/bricks')
         }
 
         for style, layout in layouts.items():
@@ -51,15 +58,28 @@ class Level:
                         x = col_index * TILESIZE
                         y = row_index * TILESIZE
                         if style == 'boundary':
-                            Tile((x, y), [self.visible_sprites, self.obstacles_sprites], 'invisible')
+                            bricks_image = graphics['bricks']
+                            Tile((x, y), [self.visible_sprites, self.obstacles_sprites], 'invisible', bricks_image[0])
                         # if style == 'object':
                         #    surf = graphics['objects'][int(col)]
                         #    Tile((x, y), [self.visible_sprites, self.obstacles_sprites], 'object', surf)
                         if style == 'grass':
                             random_grass_image = choice(graphics['grass'])
                             Tile((x, y), [self.visible_sprites, self.obstacles_sprites], 'grass', random_grass_image)
-        self.player = Player((704, 704), [self.visible_sprites],
-                             self.obstacles_sprites, self.create_attack, self.destroy_attack)
+                        if style == 'entities':
+                            # TODO: change object id on map in Tiled!!!
+                            if col == '0':
+                                self.player = Player(
+                                    (x, y),
+                                    [self.visible_sprites],
+                                    self.obstacles_sprites,
+                                    self.create_attack,
+                                    self.destroy_attack,
+                                    self.create_magic,
+                                )
+                            else:
+                                # TODO: create Enemy()
+                                pass
 
     def run(self):
         # update and draw the game

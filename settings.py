@@ -1,6 +1,6 @@
 WIDTH = 1280
 HEIGHT = 720
-FPS = 60
+FPS = 90
 TILESIZE = 64
 
 # ui
@@ -27,4 +27,20 @@ UI_BORDER_COLOR_ACTIVE = 'gold'
 weapon_data = {
     'sword': {'cooldown': 100, 'damage': 10, 'graphic': 'sprites/weapons/sword/full.png'},
     'axe': {'cooldown': 200, 'damage': 25, 'graphic': 'sprites/weapons/axe/full.png'},
+}
+# magic
+magic_data = {
+    'flame': {'strength': 5, 'cost': 20, 'graphic': 'sprites/magic/fire/full.png'},
+    'heal': {'strength': 20, 'cost': 10, 'graphic': 'sprites/magic/ice/full.png'}
+}
+
+# enemy
+monster_data = {
+    'rabbit': {'health': 100, 'exp': 100, 'damage': 10, 'attack_type': 'claw', 'attack_sound': 'path_to_sound',
+               'speed': 3, 'resistance': 3, 'attack_radius': 80, 'notice_radius': 360},
+    'wolf': {'health': 300, 'exp': 250, 'damage': 40, 'attack_type': 'slash', 'attack_sound': 'path_to_sound',
+             'speed': 3, 'resistance': 3, 'attack_radius': 120, 'notice_radius': 400},
+    'fox': {'health': 200, 'exp': 175, 'damage': 20, 'attack_type': 'thunder', 'attack_sound': 'path_to_sound',
+            'speed': 3, 'resistance': 3, 'attack_radius': 100, 'notice_radius': 300},
+
 }
