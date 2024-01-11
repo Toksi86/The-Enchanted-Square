@@ -36,11 +36,14 @@ magic_data = {
 
 # enemy
 monster_data = {
-    'rabbit': {'health': 100, 'exp': 100, 'damage': 10, 'attack_type': 'claw', 'attack_sound': 'path_to_sound',
+    'rabbit': {'health': 100, 'exp': 100, 'damage': 10, 'attack_type': 'claw', 'attack_cooldown': 500,
+               'attack_sound': 'path_to_sound',
                'speed': 3, 'resistance': 3, 'attack_radius': 80, 'notice_radius': 360},
-    'wolf': {'health': 300, 'exp': 250, 'damage': 40, 'attack_type': 'slash', 'attack_sound': 'path_to_sound',
+    'wolf': {'health': 300, 'exp': 250, 'damage': 40, 'attack_type': 'slash', 'attack_cooldown': 900,
+             'attack_sound': 'path_to_sound',
              'speed': 3, 'resistance': 3, 'attack_radius': 120, 'notice_radius': 400},
-    'fox': {'health': 200, 'exp': 175, 'damage': 20, 'attack_type': 'thunder', 'attack_sound': 'path_to_sound',
+    'fox': {'health': 200, 'exp': 175, 'damage': 20, 'attack_type': 'thunder', 'attack_cooldown': 750,
+            'attack_sound': 'path_to_sound',
             'speed': 3, 'resistance': 3, 'attack_radius': 100, 'notice_radius': 300},
 
 }
