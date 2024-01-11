@@ -6,6 +6,7 @@ from support import *
 from tile import Tile
 from weapon import Weapon
 from ui import UI
+from enemy import Enemy
 
 
 class Level:
@@ -60,14 +61,10 @@ class Level:
                         if style == 'boundary':
                             bricks_image = graphics['bricks']
                             Tile((x, y), [self.visible_sprites, self.obstacles_sprites], 'invisible', bricks_image[0])
-                        # if style == 'object':
-                        #    surf = graphics['objects'][int(col)]
-                        #    Tile((x, y), [self.visible_sprites, self.obstacles_sprites], 'object', surf)
                         if style == 'grass':
                             random_grass_image = choice(graphics['grass'])
                             Tile((x, y), [self.visible_sprites, self.obstacles_sprites], 'grass', random_grass_image)
                         if style == 'entities':
-                            # TODO: change object id on map in Tiled!!!
                             if col == '0':
                                 self.player = Player(
                                     (x, y),
@@ -78,13 +75,22 @@ class Level:
                                     self.create_magic,
                                 )
                             else:
-                                # TODO: create Enemy()
-                                pass
+                                # TODO: Change the monster ID when the tile map is ready in Tiled
+                                if col == '-2':
+                                    monster_name = 'rabbit'
+                                elif col == '-3':
+                                    monster_name = 'fox'
+                                elif col == '-4':
+                                    monster_name = 'wolf'
+                                else:
+                                    monster_name = 'monster'
+                                Enemy(monster_name, (x, y), [self.visible_sprites], self.obstacles_sprites)
 
     def run(self):
         # update and draw the game
         self.visible_sprites.custom_draw(self.player)
         self.visible_sprites.update()
+        self.visible_sprites.enemy_update(self.player)
         self.ui.display(self.player)
 
 
@@ -115,3 +121,8 @@ class YSortCameraGroup(pygame.sprite.Group):
         for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
             offset_pos = sprite.rect.topleft - self.offset
             self.display_surface.blit(sprite.image, offset_pos)
+
+    def enemy_update(self, player):
+        enemy_sprites = [sprite for sprite in self.sprites() if hasattr(sprite, 'sprite_type') and sprite.sprite_type == 'enemy']
+        for enemy in enemy_sprites:
+            enemy.enemy_update(player)
