@@ -1,5 +1,7 @@
 from random import choice
 
+import pygame.time
+
 from player import Player
 from settings import *
 from support import *
@@ -7,6 +9,7 @@ from tile import Tile
 from weapon import Weapon
 from ui import UI
 from enemy import Enemy
+from particles import AnimationPlayer
 
 
 class Level:
@@ -28,6 +31,9 @@ class Level:
 
         # user interface
         self.ui = UI()
+
+        # particles
+        self.animation_player = AnimationPlayer()
 
     def create_map(self):
         layouts = {
@@ -75,7 +81,7 @@ class Level:
                                 else:
                                     monster_name = 'monster'
                                 Enemy(monster_name, (x, y), [self.visible_sprites, self.attackable_sprites],
-                                      self.obstacles_sprites)
+                                      self.obstacles_sprites, self.damage_player, self.trigger_death_particles)
 
     def create_magic(self, style, strength, cost):
         print(style)
@@ -100,6 +106,18 @@ class Level:
                             target_sprite.kill()
                         if target_sprite.sprite_type == 'enemy':
                             target_sprite.get_damage(self.player, attack_sprite.sprite_type)
+
+    def damage_player(self, amount, attack_type):
+        if self.player.vulnerable:
+            self.player.health -= amount
+            self.player.vulnerable = False
+            self.player.hurt_time = pygame.time.get_ticks()
+            # TODO: Draw damage animations for the main character and uncomment
+            # self.animation_player.create_particles(attack_type, self.player.rect.center, [self.visible_sprites])
+
+    def trigger_death_particles(self, pos, particle_type):
+        self.animation_player.create_particles(particle_type, pos, self.visible_sprites)
+
 
     def run(self):
         # update and draw the game
