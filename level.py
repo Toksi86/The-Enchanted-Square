@@ -10,6 +10,7 @@ from weapon import Weapon
 from ui import UI
 from enemy import Enemy
 from particles import AnimationPlayer
+from magic import MagicPlayer
 
 
 class Level:
@@ -34,6 +35,7 @@ class Level:
 
         # particles
         self.animation_player = AnimationPlayer()
+        self.magic_player = MagicPlayer(self.animation_player)
 
     def create_map(self):
         layouts = {
@@ -84,9 +86,13 @@ class Level:
                                       self.obstacles_sprites, self.damage_player, self.trigger_death_particles)
 
     def create_magic(self, style, strength, cost):
-        print(style)
-        print(strength)
-        print(cost)
+        if style == 'heal':
+            self.magic_player.heal(self.player, strength, cost, [self.visible_sprites])
+        if style == 'flame':
+            self.magic_player.flame(self.player, cost, [self.visible_sprites, self.attack_sprites])
+
+        # print(strength)
+        # print(cost)
 
     def create_attack(self):
         self.current_attack = Weapon(self.player, [self.visible_sprites, self.attack_sprites])
@@ -117,7 +123,6 @@ class Level:
 
     def trigger_death_particles(self, pos, particle_type):
         self.animation_player.create_particles(particle_type, pos, self.visible_sprites)
-
 
     def run(self):
         # update and draw the game
