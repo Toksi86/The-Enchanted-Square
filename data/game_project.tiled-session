@@ -1,0 +1,93 @@
+{
+    "activeFile": "C:/development/The-Enchanted-Square/map/animals.tsx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Puma-/something.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "C:/Users/Puma-/wall.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "C:/development/The-Enchanted-Square/map/Theseus_F_01.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
+        "C:/development/The-Enchanted-Square/map/animals.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/development/The-Enchanted-Square/map/bricks.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/development/The-Enchanted-Square/map/custom.tsx": {
+            "dynamicWrapping": true
+        },
+        "C:/development/The-Enchanted-Square/map/floor.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
+        "C:/development/The-Enchanted-Square/map/floor_dark.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/development/The-Enchanted-Square/map/fox.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/development/The-Enchanted-Square/map/game_map.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 1357,
+                "y": 1560
+            }
+        },
+        "C:/development/The-Enchanted-Square/map/game_map.tmx#Theseus_F_01": {
+            "scaleInDock": 1
+        },
+        "C:/development/The-Enchanted-Square/map/game_map.tmx#bricks": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/development/The-Enchanted-Square/map/grass_2.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
+        "roguelikeSheet_transparent.tsx": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 3
+        }
+    },
+    "last.exportedFilePath": "C:/development/The-Enchanted-Square/map",
+    "last.imagePath": "C:/development/The-Enchanted-Square/sprites/floor",
+    "map.lastUsedExportFilter": "CSV файлы (*.csv)",
+    "openFiles": [
+        "C:/development/The-Enchanted-Square/map/game_map.tmx",
+        "C:/development/The-Enchanted-Square/map/animals.tsx",
+        "C:/development/The-Enchanted-Square/map/floor_dark.tsx"
+    ],
+    "project": "game_project.tiled-project",
+    "recentFiles": [
+        "C:/development/The-Enchanted-Square/map/game_map.tmx",
+        "C:/development/The-Enchanted-Square/map/floor_dark.tsx",
+        "C:/development/The-Enchanted-Square/map/animals.tsx",
+        "C:/development/The-Enchanted-Square/map/fox.tsx",
+        "roguelikeSheet_transparent.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 64,
+        "width": 64
+    },
+    "tileset.type": 0
+}
