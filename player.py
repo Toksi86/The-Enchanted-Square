@@ -1,8 +1,8 @@
 import pygame
 
+from entity import Entity
 from settings import *
 from support import import_folder
-from entity import Entity
 
 
 class Player(Entity):
@@ -47,7 +47,7 @@ class Player(Entity):
         self.health = self.stats['health'] * 0.5
         self.energy = self.stats['energy']
         self.speed = self.stats['speed']
-        self.exp = 500
+        self.exp = 0
 
         # damage timer
         self.vulnerable = True
@@ -209,5 +209,5 @@ class Player(Entity):
         self.cooldowns()
         self.get_status()
         self.animate()
-        self.move(self.speed)
+        self.move(self.stats['speed'])
         self.energy_recovery()
