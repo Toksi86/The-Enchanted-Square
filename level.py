@@ -1,17 +1,15 @@
-from random import choice
-
 import pygame.time
 
+from enemy import Enemy
+from magic import MagicPlayer
+from particles import AnimationPlayer
 from player import Player
 from settings import *
 from support import *
 from tile import Tile
-from weapon import Weapon
 from ui import UI
-from enemy import Enemy
-from particles import AnimationPlayer
-from magic import MagicPlayer
 from upgrade import Upgrade
+from weapon import Weapon
 
 
 class Level:
@@ -23,6 +21,7 @@ class Level:
         # sprite group setup
         self.visible_sprites = YSortCameraGroup()
         self.obstacles_sprites = pygame.sprite.Group()
+        self.monsters = pygame.sprite.Group()
 
         # attack sprites
         self.current_attack = None
@@ -44,6 +43,7 @@ class Level:
         layouts = {
             'boundary': import_csv_layout('map/map_FloorBlocks.csv'),
             'entities': import_csv_layout('map/map_Entities.csv'),
+            'player': import_csv_layout('map/map_Player.csv')
             # 'objects': None,
         }
         graphics = {
@@ -60,10 +60,7 @@ class Level:
                             bricks_image = graphics['bricks']
                             Tile((x, y), [self.visible_sprites, self.obstacles_sprites, self.attackable_sprites],
                                  'invisible', bricks_image[0])
-                        if style == 'grass':
-                            random_grass_image = choice(graphics['grass'])
-                            Tile((x, y), [self.visible_sprites, self.obstacles_sprites], 'grass', random_grass_image)
-                        if style == 'entities':
+                        if style == 'player':
                             if col == '0':
                                 self.player = Player(
                                     (x, y),
@@ -73,28 +70,25 @@ class Level:
                                     self.destroy_attack,
                                     self.create_magic,
                                 )
+                        if style == 'entities':
+                            if col == '1':
+                                monster_name = 'rabbit'
+                            elif col == '0':
+                                monster_name = 'fox'
+                            elif col == '2':
+                                monster_name = 'wolf'
                             else:
-                                # TODO: Change the monster ID when the tile map is ready in Tiled
-                                if col == '-2':
-                                    monster_name = 'rabbit'
-                                elif col == '-3':
-                                    monster_name = 'fox'
-                                elif col == '-4':
-                                    monster_name = 'wolf'
-                                else:
-                                    monster_name = 'monster'
-                                Enemy(monster_name, (x, y), [self.visible_sprites, self.attackable_sprites],
-                                      self.obstacles_sprites, self.damage_player, self.trigger_death_particles,
-                                      self.add_exp)
+                                monster_name = 'monster'
+                            Enemy(monster_name, (x, y),
+                                  [self.visible_sprites, self.attackable_sprites, self.monsters],
+                                  self.obstacles_sprites, self.damage_player, self.trigger_death_particles,
+                                  self.add_exp)
 
     def create_magic(self, style, strength, cost):
         if style == 'heal':
             self.magic_player.heal(self.player, strength, cost, [self.visible_sprites])
         if style == 'flame':
             self.magic_player.flame(self.player, cost, [self.visible_sprites, self.attack_sprites])
-
-        # print(strength)
-        # print(cost)
 
     def create_attack(self):
         self.current_attack = Weapon(self.player, [self.visible_sprites, self.attack_sprites])
@@ -132,21 +126,28 @@ class Level:
     def toggle_menu(self):
         self.game_paused = not self.game_paused
 
+    def win_game(self):
+        if len(self.monsters) == 0:
+            self.game_paused = True
+
     def run(self):
         self.visible_sprites.custom_draw(self.player)
         self.ui.display(self.player)
+        self.win_game()
+        player_is_alive = self.player.check_life()
 
-        if self.game_paused:
+        if self.game_paused or not player_is_alive:
             # display upgrade menu
-            self.upgrade.display()
+            if len(self.monsters) == 0:
+                self.ui.show_game_win()
+            elif player_is_alive:
+                self.upgrade.display()
+            else:
+                self.ui.show_game_over()
         else:
             self.visible_sprites.update()
             self.visible_sprites.enemy_update(self.player)
             self.player_attack_logic()
-
-
-
-
 
 
 class YSortCameraGroup(pygame.sprite.Group):

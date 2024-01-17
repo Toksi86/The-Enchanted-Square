@@ -1,4 +1,5 @@
 import pygame
+
 from settings import *
 
 
@@ -45,6 +46,28 @@ class UI:
         x = self.display_surface.get_size()[0] - 20
         y = self.display_surface.get_size()[1] - 20
         text_rect = text_surf.get_rect(bottomright=(x, y))
+
+        pygame.draw.rect(self.display_surface, UI_BG_COLOR, text_rect.inflate(20, 20))
+        self.display_surface.blit(text_surf, text_rect)
+        pygame.draw.rect(self.display_surface, UI_BORDER_COLOR, text_rect.inflate(20, 20), 3)
+
+    def show_game_over(self):
+        large_font = pygame.font.Font(None, 72)
+        text_surf = large_font.render('Game Over', False, TEXT_COLOR)
+        x = self.display_surface.get_size()[0] // 2
+        y = self.display_surface.get_size()[1] // 2
+        text_rect = text_surf.get_rect(center=(x, y))
+
+        pygame.draw.rect(self.display_surface, UI_BG_COLOR, text_rect.inflate(20, 20))
+        self.display_surface.blit(text_surf, text_rect)
+        pygame.draw.rect(self.display_surface, UI_BORDER_COLOR, text_rect.inflate(20, 20), 3)
+
+    def show_game_win(self):
+        large_font = pygame.font.Font(None, 72)
+        text_surf = large_font.render('Game Win', False, TEXT_COLOR)
+        x = self.display_surface.get_size()[0] // 2
+        y = self.display_surface.get_size()[1] // 2
+        text_rect = text_surf.get_rect(center=(x, y))
 
         pygame.draw.rect(self.display_surface, UI_BG_COLOR, text_rect.inflate(20, 20))
         self.display_surface.blit(text_surf, text_rect)

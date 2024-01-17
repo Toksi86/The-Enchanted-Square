@@ -1,6 +1,8 @@
-import pygame
-from settings import *
 from random import randint
+
+import pygame
+
+from settings import *
 
 
 class MagicPlayer:

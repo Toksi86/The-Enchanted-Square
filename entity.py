@@ -1,5 +1,6 @@
-import pygame
 from math import sin
+
+import pygame
 
 
 class Entity(pygame.sprite.Sprite):
